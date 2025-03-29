@@ -25,12 +25,12 @@ async def on_user_join(event: ChatMemberUpdated, bot: Bot):
 @pyro_client.client.on_message(filters.channel)
 async def handle_channel_post(message: Message):
     logger.warning(f"CHAT_ID: {message.chat.id}")
-    if message.chat.id == Config.CHANNEL_ID:
-        try:
-            res = await bot.copy_message(Config.TARGET_CHAT_ID, message.chat.id, message.message_id)
-            logger.warning(f"RES: {str(res)}")
-        except Exception as e:
-            logger.error(f"Ошибка при отправке пользователю {Config.TARGET_CHAT_ID}: {e}")
+    try:
+        logger.warning(f"INFO: {dict(message.chat)}")
+    except:
+        pass
+    text = f"📢 Новый пост из {message.chat.title}:\n\n{message.text or 'Медиа/документ'}"
+    await bot.send_message(Config.TARGET_CHAT_ID, text)
 
 
 @user_router.message(CommandStart())
