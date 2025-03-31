@@ -1,9 +1,11 @@
 from aiogram import Router, Bot
-from aiogram.types import ChatMemberUpdated
+from aiogram.filters import CommandStart
+from aiogram.types import ChatMemberUpdated, Message
 
 from bot.texts import WELCOME_MESSAGE
 
 user_router = Router()
+
 
 
 @user_router.chat_member()
@@ -14,3 +16,9 @@ async def on_user_join(event: ChatMemberUpdated, bot: Bot):
             chat_id=event.chat.id,
             text=WELCOME_MESSAGE.format(tg_name=user.username, full_name=user.full_name)
         )
+
+
+# @user_router.message(CommandStart())
+# async def start_cmd(message: Message):
+#     user_id = message.from_user.id
+#     await message.answer(f"✅ Теперь вы будете получать сообщения из канала! {user_id}")
