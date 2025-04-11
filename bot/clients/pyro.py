@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from aiogram.types import FSInputFile
 from pyrogram import Client
@@ -14,11 +14,11 @@ class PyroClient:
 
     async def get_new_post(self):
         post, caption = None, None
-        today = datetime.today().strftime("%Y-%m-%d")
-        history = self.client.get_chat_history(chat_id=Config.CHANNEL_ID, limit=3)
+        yesterday = (datetime.today() - timedelta(days=1)).strftime("%Y-%m-%d")
+        history = self.client.get_chat_history(chat_id=Config.CHANNEL_ID, limit=5)
         async for el in history:
             post_date = el.date.strftime("%Y-%m-%d")
-            if el.caption and Config.CHANNEL_TAG in el.caption and today == post_date:
+            if el.caption and Config.CHANNEL_TAG in el.caption and yesterday == post_date:
                 photo_path = await self.client.download_media(el.photo)
 
                 post = FSInputFile(photo_path)
