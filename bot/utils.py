@@ -24,7 +24,7 @@ async def check_new_post(bot: Bot):
         await asyncio.sleep(wait_seconds)
         if post_info := await pyro_client.get_new_post():
             post, caption = post_info
-            await bot.send_photo(Config.TARGET_CHAT_ID, photo=post, caption=caption)
+            await bot.send_photo(Config.POST_TARGET_CHAT_ID, photo=post, caption=caption)
             status = "SUCCESS"
             shutil.rmtree("downloads")
         logger.info(f"Check new post - {status}")
