@@ -13,9 +13,15 @@ user_router = Router()
 async def on_user_join(event: ChatMemberUpdated, bot: Bot):
     if event.old_chat_member.status in {"left", "kicked"} and event.new_chat_member.status == "member":
         user = event.new_chat_member.user
+        chat_id, thread_id = Config.WELCOME_TARGET_CHAT_ID.split('_')
         await bot.send_message(
             chat_id=Config.WELCOME_TARGET_CHAT_ID,
-            text=WELCOME_MESSAGE.format(tg_name=user.username, full_name=user.full_name)
+            text=WELCOME_MESSAGE.format(
+                tg_name=user.username,
+                full_name=user.full_name,
+                chat_id=int(chat_id.replace("-100", "")),
+                thread_id=int(thread_id),
+            )
         )
 
 
