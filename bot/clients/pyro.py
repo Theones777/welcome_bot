@@ -7,9 +7,18 @@ from config import Config
 
 class PyroClient:
     def __init__(self):
+        proxy = {
+            "scheme": "http",
+            "hostname": Config.PROXY_HOST,
+            "port": Config.PROXY_PORT,
+            "username": Config.PROXY_LOGIN,
+            "password": Config.PROXY_PASSWORD
+        }
+
         self.client = Client(
             Config.TG_SESSION_NAME,
-            session_string=Config.SESSION_STRING
+            session_string=Config.SESSION_STRING,
+            proxy=proxy
         )
 
     async def get_new_post(self):

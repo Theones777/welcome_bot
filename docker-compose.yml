@@ -2,7 +2,14 @@ version: '3.8'
 
 services:
   bot:
-    build: .
+    build:
+      context: .
+      args:
+        http_proxy: http://login:password@host:port
+        https_proxy: http://login:password@host:port
+    environment:
+      http_proxy: http://login:password@host:port
+      https_proxy: http://login:password@host:port
     container_name: welcome_bot
     restart: on-failure
     deploy:

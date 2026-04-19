@@ -16,3 +16,8 @@ class Config:
     CHANNEL_TAG = "#ДмитрийТроцкий_цитата"
     REMIND_TIME = int(getenv("REMIND_TIME", 3))
     REMIND_MINUTES = int(getenv("REMIND_MINUTES", 0))
+
+    PROXY_HOST = getenv("PROXY_HOST")
+    PROXY_PORT = getenv("PROXY_PORT")
+    PROXY_LOGIN = getenv("PROXY_LOGIN")
+    PROXY_PASSWORD = getenv("PROXY_PASSWORD")

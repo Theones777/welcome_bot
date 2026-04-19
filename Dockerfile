@@ -1,6 +1,12 @@
 FROM python:3.12-alpine
 
-RUN apk add --no-cache gcc musl-dev
+ARG http_proxy
+ARG https_proxy
+
+ENV http_proxy=$http_proxy
+ENV https_proxy=$https_proxy
+
+RUN apk add gcc musl-dev
 RUN adduser -D myuser
 USER myuser
 
